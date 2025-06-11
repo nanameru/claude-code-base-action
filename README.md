@@ -12,12 +12,15 @@ For simply tagging @claude in issues and PRs out of the box, [check out the Clau
 
 ## Usage
 
+ワークフローファイル（例： `.github/workflows/claude.yml`）に以下を追記するだけで、基本的な設定は完了です。
+`claude_`から始まる3つの`secrets`は、事前にGitHubリポジトリへの登録が必要です。
+
 Add the following to your workflow file:
 
 ```yaml
 # Using a direct prompt
 - name: Run Claude Code with direct prompt
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt: "Your prompt here"
     allowed_tools: "Bash(git:*),View,GlobTool,GrepTool,BatchTool"
@@ -28,7 +31,7 @@ Add the following to your workflow file:
 
 # Or using a prompt from a file
 - name: Run Claude Code with prompt file
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt_file: "/path/to/prompt.txt"
     allowed_tools: "Bash(git:*),View,GlobTool,GrepTool,BatchTool"
@@ -39,7 +42,7 @@ Add the following to your workflow file:
 
 # Or limiting the conversation turns
 - name: Run Claude Code with limited turns
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt: "Your prompt here"
     allowed_tools: "Bash(git:*),View,GlobTool,GrepTool,BatchTool"
@@ -87,7 +90,7 @@ You can provide a custom MCP configuration file to dynamically load MCP servers:
 
 ```yaml
 - name: Run Claude Code with MCP config
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt: "Your prompt here"
     mcp_config: "path/to/mcp-config.json"
@@ -119,7 +122,7 @@ You can combine MCP config with other inputs like allowed tools:
 ```yaml
 # Using multiple inputs together
 - name: Run Claude Code with MCP and custom tools
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt: "Access the custom MCP server and use its tools"
     mcp_config: "mcp-config.json"
@@ -151,7 +154,7 @@ jobs:
 
       - name: Run Code Review with Claude
         id: code-review
-        uses: Akira-papa/claude-code-base-action@main
+        uses: nanameru/claude-code-base-action@main
         with:
           prompt: "Review the PR changes. Focus on code quality, potential bugs, and performance issues. Suggest improvements where appropriate. Write your review as markdown text."
           allowed_tools: "Bash(git diff --name-only HEAD~1),Bash(git diff HEAD~1),View,GlobTool,GrepTool,Write"
@@ -218,7 +221,7 @@ Use provider-specific model names based on your chosen provider:
 ```yaml
 # For direct Anthropic API (default)
 - name: Run Claude Code with Anthropic API
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt: "Your prompt here"
     model: "claude-3-7-sonnet-20250219"
@@ -226,7 +229,7 @@ Use provider-specific model names based on your chosen provider:
 
 # For Claude AI OAuth authentication
 - name: Run Claude Code with OAuth
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt: "Your prompt here"
     model: "claude-3-7-sonnet-20250219"
@@ -243,7 +246,7 @@ Use provider-specific model names based on your chosen provider:
     aws-region: us-west-2
 
 - name: Run Claude Code with Bedrock
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt: "Your prompt here"
     model: "anthropic.claude-3-7-sonnet-20250219-v1:0"
@@ -257,7 +260,7 @@ Use provider-specific model names based on your chosen provider:
     service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
 - name: Run Claude Code with Vertex AI
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt: "Your prompt here"
     model: "claude-3-7-sonnet@20250219"
@@ -276,7 +279,7 @@ This example shows how to use OIDC authentication with AWS Bedrock:
     aws-region: us-west-2
 
 - name: Run Claude Code with AWS OIDC
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt: "Your prompt here"
     use_bedrock: "true"
@@ -296,7 +299,7 @@ This example shows how to use OIDC authentication with GCP Vertex AI:
     service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
 - name: Run Claude Code with GCP OIDC
-  uses: Akira-papa/claude-code-base-action@main
+  uses: nanameru/claude-code-base-action@main
   with:
     prompt: "Your prompt here"
     use_vertex: "true"
